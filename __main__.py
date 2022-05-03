@@ -5,9 +5,7 @@ import asyncio
 
 from voltage.ext import commands
 from threading import Thread as th
-from win10toast import ToastNotifier
 
-notify = ToastNotifier()
 prefix = 'lc'
 client = voltage.Client()
 
@@ -41,12 +39,11 @@ async def response(msg, content=''):
 
 @bot.listen('message')
 async def on_msg(msg):
-    print(msg.content)
     #  https://app.revolt.chat/server/SERVER_ID/channel/CNL_ID/MSG_ID
     if not msg.content.startswith(prefix) and msg.author.id == bot.user.id:
         if msg.content.startswith(':') and msg.content.endswith(':'):
             if msg.content[1:-1] in emojis:
-                return await msg.edit(f'https://cdn.discordapp.com/emojis/{emojis[msg.content[1:-1]]}.webp?size=48&quality=lossless')
+                return await msg.edit(f'[](https://cdn.discordapp.com/emojis/{emojis[msg.content[1:-1]]}.webp?size=48&quality=lossless)')
         parsed = msg.content.split('\n')
         for x in parsed:
             if x.startswith('https://app.revolt.chat/server/'):
@@ -82,7 +79,7 @@ Servers:  {len(bot.servers)}
 Channels: {len(bot.channels)}
 Members:  {len(bot.members)}
 ```
-[[GitHub]](https://github.com/LazyCat2/)
+[[GitHub]](https://github.com/LazyCat2/Revolt-self-bot)
 ''')
 
 
