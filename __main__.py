@@ -20,7 +20,11 @@ cooldown = {}
 emojis = {
     'kill': '964534407010603089',
     'nice': '496745638239666207',
-    'genius': '943536847563395073'
+    'genius': '943536847563395073',
+    'trolled': '863503081386541056'
+}
+textmojis = {
+    'srg': r'¯\\_(ツ)\_/¯'
 }
 
 
@@ -43,7 +47,14 @@ async def on_msg(msg):
     if not msg.content.startswith(prefix) and msg.author.id == bot.user.id:
         if msg.content.startswith(':') and msg.content.endswith(':'):
             if msg.content[1:-1] in emojis:
-                return await msg.edit(f'[](https://cdn.discordapp.com/emojis/{emojis[msg.content[1:-1]]}.webp?size=48&quality=lossless)')
+                return await msg.edit(
+                    f'[](https://cdn.discordapp.com/emojis/{emojis[msg.content[1:-1]]}.webp?size=48&quality=lossless)'
+                )
+        text = msg.content
+        for x in textmojis:
+            msg.content = msg.content.replace(f'[{x}]', textmojis[x])
+        if text != msg.content:
+            await msg.edit(content=msg.content)
         parsed = msg.content.split('\n')
         for x in parsed:
             if x.startswith('https://app.revolt.chat/server/'):
